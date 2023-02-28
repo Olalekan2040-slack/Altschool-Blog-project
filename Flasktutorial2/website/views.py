@@ -1,12 +1,26 @@
 from unicodedata import category
-from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, make_response, abort
 from flask_login import login_required, current_user
 from .models import Note
 from . import db
 import json
+from datetime import datetime
 
 
 views = Blueprint('views', __name__)
+
+# @views.route('/cook')
+# def cook():
+#  response = make_response('<h1>This document carries a cookie!</h1>')
+#  response.status_code
+#  return response
+
+@views.route('/user/<id>')
+def get_user(id):
+    user = load_user(id)
+    if not user:
+        abort(404)
+    return '<h1>Hello, {}</h1>'.format(user.name)
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
@@ -23,6 +37,23 @@ def home():
             flash('Note added!', category='success')
 
     return render_template("home.html", user=current_user)
+
+
+
+# def new():
+#  return '<h1>Hello World!</h1>'
+# views.add_url_rule('/new', 'new', new)
+
+
+# @views.route('/user/<name>')
+# def user(name):
+#  return '<h1>Hello, {}!</h1>'.format(name)
+
+@views.route('/new')
+def index():
+ user_agent = request.headers.get('User-Agent')
+ return '<p>Your browser is {}</p>'.format(user_agent)
+
 
 @views.route('/delete-note', methods =['POST'])
 @login_required
