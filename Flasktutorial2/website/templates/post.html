@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<!-- <h1>{{note.title}}</h1> -->
+<h3>By {{user.first_name}}</h3>
+<p class="article-control"><pre>{{note.data}}</pre></p>
+<h4>{{note.date.strftime('%d/%b/%Y')}}</h4>
+{% if current_user.id == note.user_id %}
+<a class="button" href="/edit/{{note.id}}/">Update</a> 
+<a class="button" href="/delete/{{note}.id}}/">Delete</a>
+<br />
+{% endif %} {% endblock content %}
