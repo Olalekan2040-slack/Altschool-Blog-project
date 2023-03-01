@@ -1,7 +1,7 @@
 {%extends"base.html" %} {% block title%}HOME{% endblock%}
 {%block content%}
 <div class="jumbotron">
-    <h1 align="center" class="display-4">Welcome to Que's Blog.<span class="wave">👋🏾</span></h1>
+    <h1 align="center" class="display-4">Welcome to Que's To-do List and personal Diary.<span class="wave">👋🏾</span></h1>
     <h3 align="center" class="lead">...so much more to read now<span class="smile">👋🏾</span></h3>
     <hr  class="my-4">
     <p align="center">News, Events, Entertainment, Lifestyle, Fashion, Beauty, Inspiration and yes... Gossip! *Wink*</p>
@@ -12,8 +12,9 @@
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     {% if current_user.id == note.user_id %}
-    <li class="list-group-item"><h4 style="font-family:'Times New Roman', Times, serif ;"><strong>{{user.first_name}}</strong>
-    </h4><h4 style="font-family:'Times New Roman', Times, serif ;"><i>{{ note.data }}</i></h4>
+    <li class="list-group-item"><h4 style="font-family:'Times New Roman', Times, serif ;">
+        <strong>{{user.first_name}}</strong>
+    </h4><h4 style="font-family:'Times New Roman', Times, serif ;"><i>{{ note.data }}</i></h4></li>
     <span><i>on- </i>{{note.date.strftime('%d/%b/%Y')}}</span>
     <li class="list-group-item">
         <button type="button" class="close" onclick="deleteNote({{note.id}})">
@@ -25,7 +26,10 @@
         </button>
     </li>
 
-    
+    {% else %}
+    <li class="list-group-item"><h4 style="font-family:'Times New Roman', Times, serif ;"><strong>
+        {{user.first_name}}</strong>
+    </h4><h4 style="font-family:'Times New Roman', Times, serif ;"><i>{{ note.data }}</i></h4></li>
     {% endif %}
     {% endfor %}
 </ul>
@@ -39,4 +43,5 @@
 
 
 </form>
-{% endblock %}
+
+{% endblock content %}
